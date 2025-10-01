@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Video Gallery</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            background: #222;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .gallery {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 1em;
+        }
+        .video-container {
+            margin-bottom: 2em;
+            display: flex;
+            justify-content: center;
+        }
+        video {
+            width: 100%;
+            max-width: 400px;   /* Maximum width */
+            max-height: 500px;  /* Maximum height */
+            height: auto;
+            border-radius: 12px;
+            background: #111;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="gallery" id="gallery"></div>
+    <script>
+        // Add your video URLs here
+        const videoLinks = [
+            "https://cdn.midjourney.com/video/004820be-4c5e-46d9-a93d-c180730f9e9d/0.mp4",
+            "https://www.w3schools.com/html/movie.mp4"
+            // Add more links as needed
+        ];
+
+        const gallery = document.getElementById('gallery');
+
+        videoLinks.forEach(url => {
+            const container = document.createElement('div');
+            container.className = 'video-container';
+
+            const video = document.createElement('video');
+            video.src = url;
+            video.controls = true;
+            video.preload = "metadata";
+            video.autoplay = true;   // Autoplay each video
+            video.muted = true;      // Required for autoplay in browsers
+
+            container.appendChild(video);
+            gallery.appendChild(container);
+        });
+    </script>
+</body>
+</html>
