@@ -12,6 +12,37 @@
             margin: 0;
             padding: 0;
         }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1em 2em;
+            flex-wrap: wrap;
+        }
+        h1 {
+            margin: 0;
+            font-size: 1.6rem;
+        }
+        .sound-control {
+            text-align: right;
+        }
+        .sound-control small {
+            display: block;
+            color: #ccc;
+            font-size: 0.8rem;
+            margin-bottom: 4px;
+        }
+        .sound-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .sound-btn:hover {
+            transform: scale(1.2);
+        }
         .gallery {
             max-width: 1200px;
             margin: 0 auto;
@@ -37,8 +68,6 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.2);
             display: block;
         }
-
-        /* For small screens, stack videos vertically */
         @media (max-width: 800px) {
             .gallery {
                 flex-direction: column;
@@ -50,74 +79,125 @@
             video {
                 max-width: 100%;
             }
+            .sound-control {
+                text-align: left;
+                margin-top: 1em;
+            }
         }
     </style>
 </head>
 <body>
-<h1>Eine Möwe macht noch keinen Sommer, deshalb...</h1>
-    <div class="gallery" id="gallery"></div>
-    <script>
-        // Add your video URLs here
-        const videoLinks = [
-            "https://cdn.midjourney.com/video/7deec52a-3892-4009-accc-0fc81aee1f23/0.mp4",
-            "https://cdn.midjourney.com/video/13baf50f-8e61-4a62-88f1-32eafa7de93a/1.mp4",
-            "https://cdn.midjourney.com/video/5486afd1-e9ba-4c39-9161-e55ff4a10223/1.mp4",
-            "https://cdn.midjourney.com/video/e20daeaa-b3b8-4f51-82cd-1d39ad33867d/0.mp4",
-            "https://cdn.midjourney.com/video/7b576816-ccdf-41a5-aa8a-0318165d5739/1.mp4",
-            "https://cdn.midjourney.com/video/f372421b-a6f5-4339-8823-05e3a8e83e01/1.mp4",
-            "https://cdn.midjourney.com/video/3c781288-ae89-4cd1-b88f-307ce7d763c5/1.mp4",
-            "https://cdn.midjourney.com/video/66d50a97-0238-4794-a574-7403abeaa148/0.mp4",
-            "https://cdn.midjourney.com/video/b16e2cd9-17ee-447d-a67b-c83211fd997f/1.mp4",
-            "https://cdn.midjourney.com/video/e10ec808-1566-4479-83c5-8f6f9a0b28d3/1.mp4",
-            "https://cdn.midjourney.com/video/d3767733-e9aa-4a3c-affd-7f06ef41f294/0.mp4",
-            "https://cdn.midjourney.com/video/190fd859-67bf-415a-8165-50fcb1025365/1.mp4",
-            "https://cdn.midjourney.com/video/ce04f83c-d2f2-41b7-8b05-84f2f90ea9be/0.mp4",
-            "https://cdn.midjourney.com/video/fea578cc-18d9-49f7-a1d5-d496844588bd/1.mp4",
-            "https://cdn.midjourney.com/video/7f919506-ebb6-46d1-9a20-b99b23efae4b/1.mp4",
-            "https://cdn.midjourney.com/video/b3aea0aa-4d7b-45e2-854b-e228f9172547/1.mp4",
-            "https://cdn.midjourney.com/video/f29be86f-1b23-497f-b327-61905d7103f0/1.mp4",
-            "https://cdn.midjourney.com/video/232585fd-c097-4995-8955-3ff86e4ce1c9/1.mp4",
-            "https://cdn.midjourney.com/video/f5be6438-27b5-46ef-8d67-f5e8c0915e13/0.mp4",
-            "https://cdn.midjourney.com/video/cd0eaaa3-977e-4c2f-a905-813be3e589e2/1.mp4",
-            "https://cdn.midjourney.com/video/dce488d7-2ab8-43b6-8010-24f23df7b858/0.mp4",
-            "https://cdn.midjourney.com/video/1b76c4b2-25f0-4062-84af-0f28cdb76e65/2.mp4",
-            "https://cdn.midjourney.com/video/aaec0eb6-55d9-448a-add2-8c2a5ea5cfc6/2.mp4",
-            "https://cdn.midjourney.com/video/679f44b5-9bb7-4b9c-b621-3c502c85b1cc/0.mp4",
-            "https://cdn.midjourney.com/video/4923c5fe-9597-4ea5-91f9-2d2ef10472c1/1.mp4",
-            "https://cdn.midjourney.com/video/2a2786bf-3bd2-42e9-b613-b9ec3dd8ff8e/3.mp4",
-            "https://cdn.midjourney.com/video/a7e04839-7019-4556-8f46-c578e4f3a66f/1.mp4",
-            "https://cdn.midjourney.com/video/d6a0c52d-fabf-43d0-92cc-0f5534f9f062/1.mp4",
-            "https://cdn.midjourney.com/video/9db2c35f-92cf-49b2-9893-61d626a09195/2.mp4",
-            "https://cdn.midjourney.com/video/13f9865e-4825-41f6-9604-f3de4f4cc186/1.mp4",
-            "https://cdn.midjourney.com/video/bd372ff7-7557-49cf-8358-be67669a27e9/1.mp4",
-            "https://cdn.midjourney.com/video/3f1bf83b-00cf-4120-904c-b35ba2d1edd0/3.mp4",
-            "https://cdn.midjourney.com/video/af2c744f-94a4-45d9-b681-d2b15e8fc889/2.mp4",
-            "https://cdn.midjourney.com/video/cbb11399-b5d8-474b-956d-53bee8f243ca/2.mp4",
-            "https://cdn.midjourney.com/video/ee34eabc-17b7-4c4a-ab85-38f19a86e1d1/0.mp4",
-            "https://cdn.midjourney.com/video/34a8a342-eea5-4266-a678-14b0caf73328/2.mp4",
-            "https://cdn.midjourney.com/video/16093347-3962-45ab-a61c-dcb91d673def/0.mp4",
-            "https://cdn.midjourney.com/video/0ee1a6a1-a040-4a31-b757-5876881a4b75/2.mp4",
-            "https://cdn.midjourney.com/video/80527924-2757-46ca-b43e-6f66e3a25c3e/3.mp4"
-            // Add more links as needed
-        ];
 
-        const gallery = document.getElementById('gallery');
+<header>
+    <h1>Eine Möwe macht noch keinen Sommer, deshalb...</h1>
+    <div class="sound-control">
+        <small>Für den kompletten Genuss in Stereo:</small>
+        <button id="sound-btn" class="sound-btn" title="Möwen an/aus">🕊️</button>
+    </div>
+</header>
 
-        videoLinks.forEach(url => {
-            const container = document.createElement('div');
-            container.className = 'video-container';
+<audio id="seagulls" src="moewen.mp3" loop></audio>
 
-            const video = document.createElement('video');
-            video.src = url;
-            video.controls = true;
-            video.preload = "metadata";
-            video.autoplay = true;
-            video.muted = true;
-            video.loop = true; // Endless repeat!
+<div class="gallery" id="gallery"></div>
 
-            container.appendChild(video);
-            gallery.appendChild(container);
-        });
-    </script>
+<script>
+    // --- Audio-Steuerung ---
+    const btn = document.getElementById('sound-btn');
+    const audio = document.getElementById('seagulls');
+    let playing = false;
+    let fadeInterval;
+
+    btn.addEventListener('click', async () => {
+        if (!playing) {
+            try {
+                audio.volume = 0.0;
+                await audio.play();
+                playing = true;
+                btn.textContent = '🔇'; // Icon ändert sich
+
+                // Lautstärke langsam hochfahren
+                let vol = 0.0;
+                clearInterval(fadeInterval);
+                fadeInterval = setInterval(() => {
+                    if (vol < 1.0) {
+                        vol += 0.02;
+                        audio.volume = Math.min(vol, 1.0);
+                    } else {
+                        clearInterval(fadeInterval);
+                    }
+                }, 100);
+            } catch (err) {
+                console.error('Ton konnte nicht gestartet werden:', err);
+            }
+        } else {
+            // Ton ausschalten
+            clearInterval(fadeInterval);
+            audio.pause();
+            playing = false;
+            btn.textContent = '🕊️';
+        }
+    });
+
+    // --- Galerie (Original unverändert) ---
+    const videoLinks = [
+        "https://cdn.midjourney.com/video/7deec52a-3892-4009-accc-0fc81aee1f23/0.mp4",
+        "https://cdn.midjourney.com/video/13baf50f-8e61-4a62-88f1-32eafa7de93a/1.mp4",
+        "https://cdn.midjourney.com/video/5486afd1-e9ba-4c39-9161-e55ff4a10223/1.mp4",
+        "https://cdn.midjourney.com/video/e20daeaa-b3b8-4f51-82cd-1d39ad33867d/0.mp4",
+        "https://cdn.midjourney.com/video/7b576816-ccdf-41a5-aa8a-0318165d5739/1.mp4",
+        "https://cdn.midjourney.com/video/f372421b-a6f5-4339-8823-05e3a8e83e01/1.mp4",
+        "https://cdn.midjourney.com/video/3c781288-ae89-4cd1-b88f-307ce7d763c5/1.mp4",
+        "https://cdn.midjourney.com/video/66d50a97-0238-4794-a574-7403abeaa148/0.mp4",
+        "https://cdn.midjourney.com/video/b16e2cd9-17ee-447d-a67b-c83211fd997f/1.mp4",
+        "https://cdn.midjourney.com/video/e10ec808-1566-4479-83c5-8f6f9a0b28d3/1.mp4",
+        "https://cdn.midjourney.com/video/d3767733-e9aa-4a3c-affd-7f06ef41f294/0.mp4",
+        "https://cdn.midjourney.com/video/190fd859-67bf-415a-8165-50fcb1025365/1.mp4",
+        "https://cdn.midjourney.com/video/ce04f83c-d2f2-41b7-8b05-84f2f90ea9be/0.mp4",
+        "https://cdn.midjourney.com/video/fea578cc-18d9-49f7-a1d5-d496844588bd/1.mp4",
+        "https://cdn.midjourney.com/video/7f919506-ebb6-46d1-9a20-b99b23efae4b/1.mp4",
+        "https://cdn.midjourney.com/video/b3aea0aa-4d7b-45e2-854b-e228f9172547/1.mp4",
+        "https://cdn.midjourney.com/video/f29be86f-1b23-497f-b327-61905d7103f0/1.mp4",
+        "https://cdn.midjourney.com/video/232585fd-c097-4995-8955-3ff86e4ce1c9/1.mp4",
+        "https://cdn.midjourney.com/video/f5be6438-27b5-46ef-8d67-f5e8c0915e13/0.mp4",
+        "https://cdn.midjourney.com/video/cd0eaaa3-977e-4c2f-a905-813be3e589e2/1.mp4",
+        "https://cdn.midjourney.com/video/dce488d7-2ab8-43b6-8010-24f23df7b858/0.mp4",
+        "https://cdn.midjourney.com/video/1b76c4b2-25f0-4062-84af-0f28cdb76e65/2.mp4",
+        "https://cdn.midjourney.com/video/aaec0eb6-55d9-448a-add2-8c2a5ea5cfc6/2.mp4",
+        "https://cdn.midjourney.com/video/679f44b5-9bb7-4b9c-b621-3c502c85b1cc/0.mp4",
+        "https://cdn.midjourney.com/video/4923c5fe-9597-4ea5-91f9-2d2ef10472c1/1.mp4",
+        "https://cdn.midjourney.com/video/2a2786bf-3bd2-42e9-b613-b9ec3dd8ff8e/3.mp4",
+        "https://cdn.midjourney.com/video/a7e04839-7019-4556-8f46-c578e4f3a66f/1.mp4",
+        "https://cdn.midjourney.com/video/d6a0c52d-fabf-43d0-92cc-0f5534f9f062/1.mp4",
+        "https://cdn.midjourney.com/video/9db2c35f-92cf-49b2-9893-61d626a09195/2.mp4",
+        "https://cdn.midjourney.com/video/13f9865e-4825-41f6-9604-f3de4f4cc186/1.mp4",
+        "https://cdn.midjourney.com/video/bd372ff7-7557-49cf-8358-be67669a27e9/1.mp4",
+        "https://cdn.midjourney.com/video/3f1bf83b-00cf-4120-904c-b35ba2d1edd0/3.mp4",
+        "https://cdn.midjourney.com/video/af2c744f-94a4-45d9-b681-d2b15e8fc889/2.mp4",
+        "https://cdn.midjourney.com/video/cbb11399-b5d8-474b-956d-53bee8f243ca/2.mp4",
+        "https://cdn.midjourney.com/video/ee34eabc-17b7-4c4a-ab85-38f19a86e1d1/0.mp4",
+        "https://cdn.midjourney.com/video/34a8a342-eea5-4266-a678-14b0caf73328/2.mp4",
+        "https://cdn.midjourney.com/video/16093347-3962-45ab-a61c-dcb91d673def/0.mp4",
+        "https://cdn.midjourney.com/video/0ee1a6a1-a040-4a31-b757-5876881a4b75/2.mp4",
+        "https://cdn.midjourney.com/video/80527924-2757-46ca-b43e-6f66e3a25c3e/3.mp4"
+    ];
+
+    const gallery = document.getElementById('gallery');
+
+    videoLinks.forEach(url => {
+        const container = document.createElement('div');
+        container.className = 'video-container';
+
+        const video = document.createElement('video');
+        video.src = url;
+        video.controls = true;
+        video.preload = "metadata";
+        video.autoplay = true;
+        video.muted = true;
+        video.loop = true; // Endless repeat!
+
+        container.appendChild(video);
+        gallery.appendChild(container);
+    });
+</script>
 </body>
 </html>
