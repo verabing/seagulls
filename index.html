@@ -6,7 +6,7 @@
 <link rel="icon" href="favicon.ico" type="image/x-icon">
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     
-    <title>Eine Mowe macht noch keinen Sommer</title>
+    <title>One seaagull doesn't make it summer yet</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         body {
@@ -17,12 +17,46 @@
             padding: 0;
         }
         header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1em 2em;
-            flex-wrap: wrap;
-        }
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 1em 2em;
+    flex-wrap: wrap;
+}
+        .header-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.header-left small {
+    color: #ccc;
+    font-size: 0.85rem;
+    margin-top: 4px;
+}
+
+.sound-btn {
+    background: linear-gradient(180deg, #555, #222);
+    border: 2px solid #888;
+    border-radius: 6px;
+    padding: 0.4em 1em;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: inset 0 1px 2px rgba(255,255,255,0.2), 0 2px 4px rgba(0,0,0,0.3);
+    transition: all 0.2s ease;
+    font-family: 'Courier New', monospace;
+}
+
+.sound-btn:hover {
+    background: linear-gradient(180deg, #666, #333);
+    transform: translateY(-1px);
+}
+
+.sound-btn:active {
+    background: linear-gradient(180deg, #333, #111);
+    transform: translateY(1px);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.4);
+}
         h1 {
             margin: 0;
             font-size: 1.6rem;
@@ -30,12 +64,7 @@
         .sound-control {
             text-align: right;
         }
-        .sound-control small {
-            display: block;
-            color: #ccc;
-            font-size: 0.8rem;
-            margin-bottom: 4px;
-        }
+       
         .sound-btn {
             background: none;
             border: none;
@@ -93,12 +122,15 @@
 <body>
 
 <header>
-    <h1>Eine Möwe macht noch keinen Sommer, deshalb...</h1>
+    <div class="header-left">
+        <h1>One seagull doesn’t make it summer yet...</h1>
+        <small>Click the button for the full stereo experience:</small>
+    </div>
     <div class="sound-control">
-        <small>Für den kompletten Genuss in Stereo, klicke auf die Möwe und geniess den Sommer:</small>
-        <button id="sound-btn" class="sound-btn" title="Möwen an/aus">🕊️</button>
+        <button id="sound-btn" class="sound-btn" title="Sound on/off">Play Sound</button>
     </div>
 </header>
+
 
 <audio id="seagulls" src="moewen.mp3" loop></audio>
 
