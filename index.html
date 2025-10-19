@@ -46,27 +46,28 @@ header {
 
 /* --- Sound-Button (Retro-Stil) --- */
 .sound-btn {
-    background: linear-gradient(180deg, #666, #222);
-    border: 2px solid #999;
-    border-radius: 8px;
+    background: #333;
+    border: 1px solid #555;
+    border-radius: 6px;
     padding: 0.5em 1.2em;
     color: #fff;
     font-size: 1rem;
     cursor: pointer;
     font-family: 'Courier New', monospace;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.2);
-    transition: all 0.15s ease;
+    transition: all 0.2s ease;
+    box-shadow: 0 0 6px rgba(255,255,255,0.08);
 }
 
 .sound-btn:hover {
-    background: linear-gradient(180deg, #777, #333);
-    transform: translateY(-1px);
+    background: #444;
+    border-color: #666;
+    box-shadow: 0 0 10px rgba(255,255,255,0.15);
 }
 
 .sound-btn:active {
-    background: linear-gradient(180deg, #333, #111);
-    transform: translateY(1px);
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.4);
+    background: #555;
+    transform: scale(0.97);
+    box-shadow: 0 0 4px rgba(255,255,255,0.1) inset;
 }
 
 /* --- Galerie --- */
@@ -133,7 +134,7 @@ video {
         <small>Click the button for the full stereo experience:</small>
     </div>
     <div class="sound-control">
-        <button id="sound-btn" class="sound-btn" title="Sound on/off">Play Sound</button>
+     <button id="sound-btn" class="sound-btn" title="Sound on/off">🔊</button>
     </div>
 </header>
 
@@ -155,7 +156,7 @@ video {
                 audio.volume = 0.0;
                 await audio.play();
                 playing = true;
-                btn.textContent = '🔇'; // Icon ändert sich
+             btn.textContent = playing ? '🔇' : '🔊';
 
                 // Lautstärke langsam hochfahren
                 let vol = 0.0;
